@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+</head>
+<body>
+<div class="content">
+    <h1 style="text-align: center">Todo</h1>
+    {% if task_data|length < 1 %}
+    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+    {% else %}
+    <table style="border:1px solid black; margin-left:auto;margin-right:auto;">
+        <tr>
+            <th>Task</th>
+        </tr>
+        {% for task in task_data %}
+        <tr>
+            <td>{{ task.content }}</td>
+            <td>
+                <div style="text-align: center" class="form">
+                    <form action="/delete-task/{{task.identifier}}/" method="POST">
+                        <input type="submit" value="Delete">
+                    </form>
+                </div>
+<!--                <a href="/delete-task/{{task.identifier}}">Delete</a>-->
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+    <div style="text-align: center" class="form">
+        <form action="/add-task" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task">
+        </form>
+    </div>
+</div>
+</body>
+</html>
